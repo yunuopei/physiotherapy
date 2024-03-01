@@ -12,29 +12,8 @@
   </el-row>
   <el-col v-loading="loading" class="scrollbar-body" style="background-color:white;">
     <el-scrollbar>
-      <div style="text-align: right;margin-top: 10px;font-size: 17px" >
-        <span >认证状态: </span>
-        <span v-if="status === 1" class="type-item1" >认证失败</span>
-        <span v-else-if="status === 2" class="type-item" >认证通过</span>
-        <span v-else-if="status === 0" class="type-item">待审核</span>
-        <span v-else class="type-item">待提交</span>
-      </div>
-      <div v-if="!hasUpdate" style="margin-top: 10px">
-        <span style="font-size: 17px;margin-left:10px;" >所属单位：</span>
-        <span style="font-size: 17px;" v-if="aid==null">暂无数据</span>
-        <el-select v-else v-model="aid" disabled>
-          <el-option v-for="item in deptList" :label="item.name" :value="item.aid"/>
-        </el-select>
-      </div>
-      <div style="margin-top: 10px;" v-if="hasUpdate">
-        <span style="font-size: 17px;margin-left:10px;margin-right: 20px">所属单位</span>
-        <el-select v-model="aid" filterable
-                   placeholder="选择单位" >
-          <el-option v-for="item in deptList" :label="item.name" :value="item.aid"/>
-        </el-select>
-      </div>
       <div class="upload-section">
-        <div class="upload-text" style="margin-top: 10px;font-size: 17px;margin-left: 10px">材料证明</div>
+        <div class="upload-text" style="margin-top: 10px;font-size: 17px;margin-left: 10px">档案材料：</div>
       </div>
       <div v-if="fileList.length===0&&!hasUpdate" style="text-align: center ;"><el-empty :image-size="200" description="暂无数据,待添加" /></div>
       <div v-else v-for="(file, index) in fileList" :key="index" class="uploaded-image">
@@ -80,11 +59,6 @@
           </div>
         </div>
       </div>
-      <div  v-if="status === 1">
-        <div style="margin-top:20px;white-space: pre-wrap;color: #e50404;pxword-wrap: break-word; width: 95%; line-height: 1.5; letter-spacing: 1.3px;margin-left: 10px;font-size: 17px;">
-          审核失败原因：{{ cause }}
-        </div>
-      </div>
     </el-scrollbar>
   </el-col>
 </template>
@@ -92,7 +66,7 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from 'vue';
 import router from "@/router";
-import UploadComponents from '../../components/FileUpload/UploadComponents.vue';
+import UploadComponents from '@/components/user/UploadComponents.vue';
 import {ElUpload, ElButton, ElRow, ElCol, ElInput, ElDialog, ElMessage, ElMessageBox,ElTreeSelect} from 'element-plus';
 import {Search,Edit,Delete,Plus,View} from "@element-plus/icons-vue";
 import {nextTick} from "@vue/runtime-core";
@@ -124,11 +98,6 @@ const hideDeleteButton = () => {
 const deptList = ref([])
 
 onMounted(async() => {
-  axios.get('/front/dept/list/dept').then((res) => {
-    deptList.value = res.data.data
-  }).catch(error => {
-    console.error(error)
-  })
   axios.get('/front/user')
       .then(response => {
         // console.log(response.data.data)
@@ -190,10 +159,6 @@ const saveAll=async()=>{
     ElMessage.error("描述不能为空")
     return
   }
-  if(aid.value===null){
-    ElMessage.error("单位不能为空")
-    return
-  }
   party.value.unitId=aid.value
   party.value.pictureList=fileList.value
   party.value.description =textInput.value
@@ -242,20 +207,11 @@ const saveAll=async()=>{
   margin-left: 20px;
   margin-bottom: 10px;
 }
-.type-item1 {
-  border-radius: 6px;
-  background-color: #ffcccc;
-  border-color: #ff9999;
-  color: #ff3333;
-  letter-spacing: 4px;
-  margin-left: 20px;
-  margin-bottom: 10px;
-}
 .top{
   position: fixed;
-  background-color: #e50404;
+  background-color: #00C5CD;
   width: 100%;
-  height: 8%;
+  height: 50px;
   display: flex;
   align-items: center;
   z-index: 999;
@@ -271,6 +227,7 @@ const saveAll=async()=>{
   margin-left: 5px; /* 将 "登录" 文字置于右侧位置 */
   font-size: 17px;
   color: #ffffff;
+  font-weight: bold;
 }
 
 .title {
@@ -287,9 +244,9 @@ const saveAll=async()=>{
   display: flex;
   flex-direction: column;
   position: relative;
-  top: 8%;
+  top: 50px;
   width: 100%;
-  height: 92%;
+  height: calc(100% - 50px);
 }
 ::v-deep .el-scrollbar__bar{
   display: none;
