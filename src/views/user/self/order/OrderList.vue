@@ -106,7 +106,8 @@ const handleTabClick = (tab) => {
 const loadings=ref(false)
 const centerDialogVisible=ref(false)
 const toDetail=(id)=>{
-  router.push('/shop/orderDetail/'+id)
+  // router.push('/shop/orderDetail/'+id)
+  router.push('/user/self/order/detail')
 }
 const  closeDialog=(done)=> {
   centerDialogVisible.value = false;

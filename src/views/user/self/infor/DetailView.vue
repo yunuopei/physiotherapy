@@ -10,12 +10,9 @@
   <div class="scrollbar-body">
     <el-scrollbar>
         <div  style="background-color: white;margin-top: 10px;border-radius: 10px;margin-right: 10px;margin-left: 10px;padding: 5px">
-          <div style="padding:5px;display: flex; align-items: center;">
-            <span style="text-align: left; ">头像</span>
-            <div style="flex-grow: 1;"></div>
-            <el-avatar :size="60" :src="activityJPG" :fit="fill" style="margin-right: 10px"></el-avatar>
+          <div style="padding:5px;text-align: center">
+            <UploadComponent class="custom-upload" @upload-success="handleUploadSuccess" :coverUrl=true></UploadComponent>
           </div>
-          <el-divider style="margin: 5px"/>
           <div style="padding:5px;display: flex; align-items: center;"@click="toName">
             <span style="text-align: left; ">昵称</span>
             <div style="flex-grow: 1;"></div>
@@ -42,7 +39,11 @@
 
 <script setup>
 import router from "@/router";
-import activityJPG from "@/assets/ren1.jpg"
+import { ref } from 'vue';
+// import activityJPG from "@/assets/ren1.jpg"
+const activityJPG = ref('https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png');
+import UploadComponent from '@/components/user/UploadComponent.vue';
+
 const redirect=()=>{
   router.back();
 }

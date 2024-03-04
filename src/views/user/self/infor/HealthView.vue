@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col class="top">
-      <img src="../../assets/arrow.png" alt="" @click="redirect">
+      <img src="@/assets/arrow.png" alt="" @click="redirect">
       <span class="text">
             健康档案
           </span>
@@ -313,7 +313,7 @@ const saveAll=async()=>{
   cursor: pointer;
 }
 .el-button {
-  background-color: #e50404;
+  background-color: #00C5CD;
   color: white;
 
 }
