@@ -109,6 +109,10 @@ const toDetail=(id)=>{
   // router.push('/shop/orderDetail/'+id)
   router.push('/user/self/order/detail')
 }
+const toJudge=(id)=>{
+  // router.push('/shop/orderDetail/'+id)
+  router.push('/user/self/order/judge')
+}
 const  closeDialog=(done)=> {
   centerDialogVisible.value = false;
   done(); // 关闭弹窗
@@ -191,6 +195,7 @@ const openDialog = (data) => {
             <el-row>
               <el-col :span="24">
                 <div style="display: flex; justify-content: flex-end;">
+                  <el-button  type="" size="small" style="margin-right:10px;background-color:#00C5CD;color:white;margin-top: 2px" round @click="toJudge(activity.orderId)">评价</el-button>
                   <el-button v-if="activeTab==0" type="" size="small" style="background-color: #00C5CD;color:white;margin-top: 2px" round @click="openDialog(activity)">去核销</el-button>
                   <el-button v-else type="" size="small" style="background-color: white;border: #00C5CD solid 1px;margin-top: 2px;color: black" @click="toDetail(activity.orderId)" round>查看详情</el-button>
                   <el-dialog
@@ -215,7 +220,6 @@ const openDialog = (data) => {
           </div>
         </li>
       </ul>
-
       <p class="loading" v-if="loading">没有更多的数据</p>
     </el-scrollbar>
 

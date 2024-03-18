@@ -194,6 +194,11 @@ const routes: Array<RouteRecordRaw> = [
                                 name:'orderlist',
                                 component: () => import('../views/user/self/order/OrderList.vue'),
                             },
+                            {
+                                path:'judge',
+                                name:'judge',
+                                component: () => import('../views/user/self/order/JudgeView.vue'),
+                            },
                         ]
                     },
                 ]
